@@ -1,3 +1,12 @@
+# project specific
+anaconda_projects/
+sliding_spectrograms_3_seconds/
+sliding_spectrograms_10_seconds/
+.idea/
+
+# model records (too big fir github)
+*.pt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

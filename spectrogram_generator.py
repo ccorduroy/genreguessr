@@ -1,11 +1,4 @@
-# sample down to 12 kHz from 22.05 kHz in original
-# means the height is only going to be upt o 6 kHz
-# 1024 fft - image will be 512 bins in height due to
-# results in a smaller spectrogram image
-# 10 seconds of audio
-# hop length half of fft length (hop)
-# only take half the spectrogram due to N/2 symmetry
-# optimize for music
+# currently set for 10 3-second segments
 
 import librosa
 import librosa.display
@@ -16,7 +9,7 @@ import cv2
 from PIL import Image
 
 N_FFT = 1024
-HOP_LENGTH = 70     # sample_rate * time / n_fft to make the spectrogram relatively square
+HOP_LENGTH = 71     # sample_rate * time / n_fft to make the spectrogram relatively square
 SAMPLE_RATE = 12000
 HEIGHT = N_FFT//2
 
@@ -115,13 +108,17 @@ def create_spectrogram_sliding_window(window_duration, overlap_duration, parent_
                     S_db = S_db[:HEIGHT, :]
 
                     S_db_normalized = cv2.normalize(S_db, None, 0, 255, cv2.NORM_MINMAX)
-                    S_db_normalized = np.uint8(S_db_normalized)
+
+                    # add border to make width 512 (is 508 with current 3-second implementation)
+                    S_db_padded = cv2.copyMakeBorder(S_db_normalized, 0, 0, 2, 2, cv2.BORDER_CONSTANT, value=0)
+
+                    S_db_padded = np.uint8(S_db_padded)
 
                     output_name = f"{os.path.splitext(file)[0]}_win{i}.png"
                     output_path = os.path.join(temp_output_folder, output_name)
 
                     # keep BW (no colormap)
-                    cv2.imwrite(output_path, S_db_normalized)
+                    cv2.imwrite(output_path, S_db_padded)
 
                     # Plot and save
                     # plt.figure(figsize=(10, 4))     # FOR GRAPH VISUALS

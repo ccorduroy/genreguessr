@@ -1,3 +1,5 @@
+# GPU enabled (cuda)
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -13,7 +15,6 @@ import os
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
 
-#os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 #print(torch.__version__)
 # set device (used globally)
 device = (
@@ -57,7 +58,6 @@ print(label)
 input_image_shape = image.shape
 
 print(f'Train set size: {len(trainset)}, Validation set size: {len(valset)}, Test set size: {len(testset)}')
-
 
 class FullDataset(torch.utils.data.Dataset):
     def __init__(self, dataset):
@@ -194,46 +194,46 @@ train_loss_history = [];
 train_acc_history = []
 val_loss_history = [];
 val_acc_history = []
-for epoch in range(n_epochs):  # Iterate over epochs
-    print(f"\nEpoch {epoch + 1} of {n_epochs}")
-    if epoch == n_epochs // 2:
-        lr = optimizer.param_groups[0]['lr']
-        print(f'Reducing learning rate from {lr} to {lr / 4}')
-        optimizer.param_groups[0]['lr'] /= 4
-    train_loss, train_acc = train(model, trainloader, criterion, optimizer, device)  # Train
-    train_loss, train_acc = validate(model, train_eval_loader, criterion, device,
-                                     tag='Train Eval')  # Evaluate on Train data
-    val_loss, val_acc = validate(model, valloader, criterion, device)  # Validate
-    train_loss_history.append(train_loss);
-    train_acc_history.append(train_acc)
-    val_loss_history.append(val_loss);
-    val_acc_history.append(val_acc)
-    if val_acc > best_acc:  # Save best model
-        best_acc = val_acc
-        torch.save(model.state_dict(),
-                   "best_model_v4.pt")  # saving model parameters ("state_dict") saves memory and is faster than saving the entire model
-
-epochs = torch.arange(n_epochs)
+#for epoch in range(n_epochs):  # Iterate over epochs
+#    print(f"\nEpoch {epoch + 1} of {n_epochs}")
+#    if epoch == n_epochs // 2:
+#        lr = optimizer.param_groups[0]['lr']
+#        print(f'Reducing learning rate from {lr} to {lr / 4}')
+#        optimizer.param_groups[0]['lr'] /= 4
+#    train_loss, train_acc = train(model, trainloader, criterion, optimizer, device)  # Train
+#    train_loss, train_acc = validate(model, train_eval_loader, criterion, device,
+#                                     tag='Train Eval')  # Evaluate on Train data
+#    val_loss, val_acc = validate(model, valloader, criterion, device)  # Validate
+#    train_loss_history.append(train_loss);
+#    train_acc_history.append(train_acc)
+#    val_loss_history.append(val_loss);
+#    val_acc_history.append(val_acc)
+#    if val_acc > best_acc:  # Save best model
+#        best_acc = val_acc
+#        torch.save(model.state_dict(),
+#                   "best_model_v4.pt")  # saving model parameters ("state_dict") saves memory and is faster than saving the entire model
+#
+#epochs = torch.arange(n_epochs)
 
 # plot training and validation loss
-plt.figure()
-plt.plot(epochs, train_loss_history, label='train_loss')
-plt.plot(epochs, val_loss_history, label='val_loss')
-plt.xlabel('epochs')
-plt.ylabel('Multiclass Cross Entropy Loss')
-plt.title(f'Loss with miniVGG model')
-plt.legend()
-plt.show()
+#plt.figure()
+#plt.plot(epochs, train_loss_history, label='train_loss')
+#plt.plot(epochs, val_loss_history, label='val_loss')
+#plt.xlabel('epochs')
+#plt.ylabel('Multiclass Cross Entropy Loss')
+#plt.title(f'Loss with miniVGG model')
+#plt.legend()
+#plt.show()
 
 # plot training and validation accuracy
-plt.figure()
-plt.plot(epochs, train_acc_history, label='train_acc')
-plt.plot(epochs, val_acc_history, label='val_acc')
-plt.xlabel('epochs')
-plt.ylabel('Accuracy')
-plt.title(f'Accuracy with miniVGG model; Regularizer: {reg_val : 3.2g}')
-plt.legend()
-plt.show()
+#plt.figure()
+#plt.plot(epochs, train_acc_history, label='train_acc')
+#plt.plot(epochs, val_acc_history, label='val_acc')
+#plt.xlabel('epochs')
+#plt.ylabel('Accuracy')
+#plt.title(f'Accuracy with miniVGG model; Regularizer: {reg_val : 3.2g}')
+#plt.legend()
+#plt.show()
 
 # Load the best model and evaluate on test set
 model.load_state_dict(torch.load("best_model_v4.pt"))
