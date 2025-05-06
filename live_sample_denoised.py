@@ -4,7 +4,7 @@ import scipy.io.wavfile as wav
 import scipy.signal as signal
 import matplotlib.pyplot as plt
 import time
-import spectrogram_generator as specgen
+from spectrogram_generator import create_single_spectrogram
 
 # --- Parameters ---
 FS = 16000
@@ -102,4 +102,4 @@ plot_spectrogram(np.tile(noise_mag, (1, noisy_mag.shape[1])), "Estimated Noise S
 plot_spectrogram(clean_mag, "Denoised Audio Spectrogram", FS, HOP_LENGTH, N_FFT)
 
 # --- spectrogram creation for model ---
-specgen.create_single_spectrogram("live_sample.wav", 3) # duration 3 set by the CNN.
+create_single_spectrogram("live_sample.wav", 3) # duration 3 set by the CNN.
