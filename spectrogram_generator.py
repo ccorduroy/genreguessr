@@ -20,47 +20,33 @@ def generate_spectrogram(y):
     S_db = librosa.amplitude_to_db(np.abs(D), ref=np.max)
 
     # Only keep the first 512 bins (due to N/2 symmetry)
-    S_db = S_db[:512, :]
-    return S_db
-
-
-def visualize_single_spectrogram(file_name):
-    # Load audio file and downsample
-    y, sr = librosa.load(file_name, sr=SAMPLE_RATE)  # Downsample to 12kHz
-
-    # Generate spectrogram
-    S_db = generate_spectrogram(y)
-
     S_db = S_db[:HEIGHT, :]
 
-    # Display the spectrogram
-    plt.figure(figsize=(10, 5))
-    librosa.display.specshow(S_db, sr=sr, x_axis='time', y_axis='log')  # y_axis='log'
-    plt.colorbar(format='%+2.0f dB')
-    plt.title('Spectrogram')
-    plt.tight_layout()
-    plt.show()
-    plt.close()
+    S_db_normalized = cv2.normalize(S_db, None, 0, 255, cv2.NORM_MINMAX)
+
+    # add border to make width 512 (is 508 with current 3-second implementation)
+    S_db_padded = cv2.copyMakeBorder(S_db_normalized, 0, 0, 2, 2, cv2.BORDER_CONSTANT, value=0)
+
+    S_db_padded = np.uint8(S_db_padded)
+    return S_db_padded
 
 
 def create_single_spectrogram(file_path, duration):
     y, sr = librosa.load(file_path, sr=SAMPLE_RATE)  # Downsample to 12kHz
     total_duration = librosa.get_duration(y=y, sr=sr)
+
+    # allows you to select the first x amount of time of the full wav file.
     adjusted_length = int(duration * sr)
     adjusted_y = y[0:adjusted_length]
 
     # Generate spectrogram
     S_db = generate_spectrogram(adjusted_y)
 
-    S_db = S_db[:HEIGHT, :]
-
-    # Normalize and convert to uint8 for image format
-    S_db_normalized = cv2.normalize(S_db, None, 0, 255, cv2.NORM_MINMAX)
-    S_db_normalized = np.uint8(S_db_normalized)
-
     # Save the spectrogram image (greyscale)
     output_path = f"{os.path.splitext(file_path)[0]}_spectrogram.png"
-    cv2.imwrite(output_path, S_db_normalized)
+
+    cv2.imwrite(output_path, S_db)
+    print(f"Saved: {output_path}")
 
 
 def create_spectrogram_sliding_window(window_duration, overlap_duration, parent_folder, genre=None):
@@ -132,10 +118,9 @@ def create_spectrogram_sliding_window(window_duration, overlap_duration, parent_
                     print(f"Saved: {output_path}")
 
 
-# %%
-# To generate only 1 image
-# filePath = "blues.00000.wav"
-# create_single_spectrogram(file_path=filePath, duration=30)
+# To generate only 1 image - for raw data
+#filePath = "./gtzan/genres_original/blues/blues.00000.wav"
+#create_single_spectrogram(file_path=filePath, duration=3)   # match CNN input length
 
 # -------------------------------------------------------------------------
 
@@ -153,7 +138,8 @@ def create_spectrogram_sliding_window(window_duration, overlap_duration, parent_
 
 # -------------------------------------------------------------------------
 
-# To generate spectrogram for all genre in the parent folder
-
+# To generate spectrogram for all genre in the parent folder:
+# generates all
 create_spectrogram_sliding_window(window_duration=3, overlap_duration=3, parent_folder='./gtzan/genres_original')
+
 # create_spectrogram_sliding_window(window_duration=10, overlap_duration=10, parent_folder='genres_original',genre="blues")
