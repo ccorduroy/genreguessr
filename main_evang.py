@@ -5,6 +5,10 @@ from transformations import no_transform, pca_transform, rbf_transform, polynomi
 from models import train_logistic, train_svm, train_perceptron, train_ridge, train_decision_tree, train_random_forest, train_knn, train_nn
 import pandas as pd
 from models_evang import train_logistic, train_svm, train_perceptron, train_ridge, train_decision_tree, train_random_forest, train_knn, train_nn, plot_model_history
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torch.utils.data import TensorDataset, DataLoader
 
 transformations = {
     "none": no_transform,
