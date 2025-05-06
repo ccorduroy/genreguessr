@@ -4,6 +4,7 @@ from datasets import load_gtzan
 from transformations import no_transform, pca_transform, rbf_transform, polynomial_kernel
 from models import train_logistic, train_svm, train_perceptron, train_ridge, train_decision_tree, train_random_forest, train_knn, train_nn
 import pandas as pd
+import matplotlib.pyplot as plt
 
 transformations = {
     "none": no_transform,
@@ -29,7 +30,6 @@ X, y = load_gtzan('gtzan/features_3_sec.csv')
 X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)
 X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
 
-
 results_dict = {}
 for tf_name, tf_func in transformations.items():
     X_train_transformed, X_val_transformed, X_test_transformed = tf_func(X_train, X_val, X_test)
@@ -44,6 +44,20 @@ for tf_name, tf_func in transformations.items():
 
         print(f"[{tf_name}] + [{model_name}] = Test Accuracy: {acc:.4f}")
 
+# Convert to DataFrame for easy plotting
 results_df = pd.DataFrame(results_dict)
 print("\nFinal Results Table:")
 print(results_df)
+
+# Plotting
+for tf_name in results_df.columns:
+    plt.figure(figsize=(10, 6))
+    plt.bar(results_df.index, results_df[tf_name], color='skyblue')
+    plt.title(f'Model Accuracies with Transformation: {tf_name}')
+    plt.xlabel('Model')
+    plt.ylabel('Test Accuracy')
+    plt.xticks(rotation=45)
+    plt.ylim(0, 1)
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.tight_layout()
+    plt.show()
