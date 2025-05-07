@@ -93,7 +93,7 @@ Trained PyTorch model on [Google Drive](https://drive.google.com/file/d/1_mKhayw
 
 Another architecture. The spectrogram generator is currently configured for this model.
 
-### [ResNet-34 on 3-seocnd Spectrograms with appended numeric features](CNN_v9_3sec_resNet34_appendedfeatures/)
+### [ResNet-34 on 3-seocnd Spectrograms with appended numeric features](CNN_v9_3sec_resnet34_appendedfeatures/)
 
 ## Model Loading/Inference
 
