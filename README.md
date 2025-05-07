@@ -8,7 +8,7 @@ Caitlin Sullivan <ccsulliv@usc.edu>
 
 # EE 460 Final Project: Music Genre Guesser
 
-### [Goto: Repository Inventory](INVENTORY.md)
+Pytorch Model Record: [Google Drive]()
 
 ## 1. Introduction
 
@@ -211,7 +211,7 @@ be fed in for inference.
 
 ### 4.1: Model Performance on Train/Val/Test
 
-#### 10-Second Spectrogram Trained CNN
+#### 10-Second Spectrogram Trained VGG
 
 Test Accuracy (last epoch): 78.9%
 
@@ -219,7 +219,7 @@ Test Accuracy (last epoch): 78.9%
 ![confusion matrix 1](./CNN_10sec_trained/confusionmatrix.png)
 
 
-#### 3-second Spectrogram Trained CNN
+#### 3-second Spectrogram Trained VGG
 
 `Train Eval: 100%|██████████| 219/219 [08:44<00:00,  2.39s/batch, loss=0.129, acc=99.2]`
 
@@ -231,6 +231,18 @@ Test Accuracy (last epoch): 78.9%
 
 This model overfit the train set. This might have been a result of the length of the 
 spectrogram or the depth of the neural network. 
+
+#### 3-Second Spectrogram Trained ResNet
+
+`Train: 100%|██████████| 219/219 [01:41<00:00,  2.16batch/s, loss=1.53, acc=44.3]`
+
+`Train Eval: 100%|██████████| 219/219 [00:45<00:00,  4.78batch/s, loss=2.64, acc=54.7]`
+
+`Val: 100%|██████████| 47/47 [00:09<00:00,  4.79batch/s, loss=1.47, acc=54.1]`
+
+`Val: 100%|██████████| 47/47 [00:09<00:00,  4.74batch/s, loss=1.49, acc=52.2]`
+
+`Best Model Test accuracy: 0.5218`
 
 ### 4.2: Problems and Challenges
 
