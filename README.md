@@ -8,7 +8,7 @@ Caitlin Sullivan <ccsulliv@usc.edu>
 
 # EE 460 Final Project: Music Genre Guesser
 
-Pytorch Model Record: [Google Drive]()
+### [Goto: Repository Inventory](INVENTORY.md)
 
 ## 1. Introduction
 
