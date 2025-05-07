@@ -2,9 +2,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from datasets import load_gtzan
 from transformations import no_transform, pca_transform, rbf_transform, polynomial_kernel
-from models import train_logistic, train_svm, train_perceptron, train_ridge, train_decision_tree, train_random_forest, train_knn, train_nn
 import pandas as pd
-from models_evang import train_logistic, train_svm, train_perceptron, train_ridge, train_decision_tree, train_random_forest, train_knn, train_nn, plot_model_history
+from other.models_evang import train_logistic, train_svm, train_perceptron, train_ridge, train_decision_tree, train_random_forest, train_knn, train_nn, plot_model_history
 
 transformations = {
     "none": no_transform,

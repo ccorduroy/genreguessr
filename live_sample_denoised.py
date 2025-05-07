@@ -16,7 +16,7 @@ WINDOW = signal.windows.hann(N_FFT)
 
 # --- Functions ---
 def record_audio(duration, fs, label="audio"):
-    print(f"Recording {label} ({duration} seconds)...")
+    print(f"Listening for {label} ({duration} seconds)...")
     audio = sd.rec(int(duration * fs), samplerate=fs, channels=1, dtype='float32')
     sd.wait()
     print(f"{label.capitalize()} recording complete.")

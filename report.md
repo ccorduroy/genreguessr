@@ -1,50 +1,14 @@
 Le Duong <lnduong@usc.edu>
 
-<<<<<<< HEAD
-- best number of components: 55
-- logreg performance: 72% 
-- random forest perfromance on PCs: 66%
-
-Model Exploration Plots:
-Key Insights
-Polynomial Kernel Transformation:
-- Best performer overall for linear models (logistic regression, ridge, SVM).
-- Likely expands the feature space in a way that linear models can leverage non-linearly separable boundaries.
-- Works surprisingly well even for neural nets and KNN.
-
-RBF Kernel Transformation:
-- Performs consistently poorly for most models (especially perceptron and neural net).
-- RBF might distort the feature space too much, especially without proper tuning of hyperparameters (like gamma) or standardization.
-- Could lead to overfitting on training or loss of meaningful structure.
-
-No Transformation:
-- Still strong for tree-based methods (e.g., random forest, decision trees) and KNN.
-- These models work well with original feature distributions when the raw features are informative.
-
-PCA Transformation:
-- PCA slightly reduces performance across the board.
-- Likely due to dimensionality reduction discarding useful information for classification.
-- Exception: helps reduce overfitting or redundancy for neural nets and random forests, but not significantly here.
-
-Specific Model Behavior Insights:
-- KNN performs best overall with raw data and polynomial kernel. Likely due to high-dimensional, localized patterns in GTZAN features.
-- Random Forest is also robust across all transforms — not sensitive to feature scaling.
-- Neural Network performs poorly on RBF, but excels otherwise. Likely affected by feature scale distortion from RBF.
-- Linear models (Logistic, Ridge, SVM) are greatly boosted by the polynomial kernel, supporting the idea that the original data isn’t linearly separable.
-
-Conclusions:
-- Use polynomial kernel transformation when working with linear models.
-- Avoid RBF transformation unless you tune hyperparameters carefully.
-- KNN and Random Forest remain the most robust across transformations.
-- Neural networks benefit from more structured expansions like polynomial features, not arbitrary warping like RBF.
-=======
 Samrit Grover <ssgrover@usc.edu>
 
 Evangelos Neophytou <neophyto@usc.edu>
 
 Caitlin Sullivan <ccsulliv@usc.edu>
 
-# EE 460 Final Project: Genre Guesser
+# EE 460 Final Project: Music Genre Guesser
+
+Pytorch Model Record: [Google Drive]()
 
 ## 1. Introduction
 
@@ -77,7 +41,7 @@ Training MLPs on known numerical features (GTZAN 60-feature, Spotify API feature
 
 ### 1.3: Anticipated Results and Milestones
 
-1. It is expected that a CNN+RNN model would have higher accuracy compared to CNN alone.
+1. It is expected that a CNN+RNN model would have higher accuracy compared to CNN alone. A CNN
 in general will have better performance than non deep-learning models.
 2. Appending numerical features to spectrograms would increase the accuracy. 
 3. We will train multiple models (PCA+Random Forest, RBF+FNN) to compare with CNN model.
@@ -130,6 +94,45 @@ models = {
     "neural_net" : train_nn
 }
 ```
+
+#### Model Performance Summary
+
+![summary](./model_exploration/plots/accuracy_table.png)
+
+#### All Loss and Accuracy Functions: See [model exploration plots](model_exploration/plots)
+
+#### Transformation Key Insights
+#### ↪ Polynomial Kernel Transformation:
+- Best performer overall for linear models (logistic regression, ridge, SVM).
+- Likely expands the feature space in a way that linear models can leverage non-linearly separable boundaries.
+- Works surprisingly well even for neural nets and KNN.
+
+#### ↪ RBF Kernel Transformation:
+- Performs consistently poorly for most models (especially perceptron and neural net).
+- RBF might distort the feature space too much, especially without proper tuning of hyperparameters (like gamma) or standardization.
+- Could lead to overfitting on training or loss of meaningful structure.
+
+#### ↪ No Transformation:
+- Still strong for tree-based methods (e.g., random forest, decision trees) and KNN.
+- These models work well with original feature distributions when the raw features are informative.
+
+#### ↪ PCA Transformation:
+- PCA slightly reduces performance across the board.
+- Likely due to dimensionality reduction discarding useful information for classification.
+- Exception: helps reduce overfitting or redundancy for neural nets and random forests, but not significantly here.
+
+#### Specific Model Behavior
+- KNN performs best overall with raw data and polynomial kernel. Likely due to high-dimensional, localized patterns in GTZAN features.
+- Random Forest is also robust across all transforms — not sensitive to feature scaling.
+- Neural Network performs poorly on RBF, but excels otherwise. Likely affected by feature scale distortion from RBF.
+- Linear models (Logistic, Ridge, SVM) are greatly boosted by the polynomial kernel, supporting the idea that the original data isn’t linearly separable.
+
+#### Conclusions
+- Use polynomial kernel transformation when working with linear models.
+- Avoid RBF transformation unless you tune hyperparameters carefully.
+- KNN and Random Forest remain the most robust across transformations.
+- Neural networks benefit from more structured expansions like polynomial features, not arbitrary warping like RBF.
+
 
 ### 2.3: Main Model Choice and Training Approaches
 
@@ -210,6 +213,12 @@ be fed in for inference.
 
 #### 10-Second Spectrogram Trained CNN
 
+Test Accuracy (last epoch): 78.9%
+
+
+![confusion matrix 1](./CNN_10sec_trained/confusionmatrix.png)
+
+
 #### 3-second Spectrogram Trained CNN
 
 `Train Eval: 100%|██████████| 219/219 [08:44<00:00,  2.39s/batch, loss=0.129, acc=99.2]`
@@ -218,21 +227,47 @@ be fed in for inference.
 
 `Test: 100%|██████████| 47/47 [02:00<00:00,  2.55s/batch, loss=0.639, acc=78.7]`
 
-There was overfitting. This might have been a function of the length of the spectrogram
+(no confusion matrix yet)
+
+This model overfit the train set. This might have been a result of the length of the 
+spectrogram or the depth of the neural network. 
 
 ### 4.2: Problems and Challenges
 
 #### CNN Size and Computing Limits
 Each CNN training (did 7) took almost an entire day on one device. On GPU, the
 CNNs processing larger images took 14 hours or so each. It's probable that either the 
-CNN needed longer spectrograms to make more accurate predictions or needed to be deeper,
-both of which would have exponentially increased model complexity outside of this
+CNN needed longer spectrograms to make more accurate predictions or needed to be deeper--
+both of these options would have exponentially increased model complexity outside of this
 project's time frame and our computing capability.
+
+Overfitting may also have been caused by dataset size compared to the complexity of the CNN. 
+Since there are only 1,000 songs in the dataset, that results in only 3,000 data points if taking
+10-second spectrograms or 10,000 if taking 3-second spectrograms. The latter is more sufficient
+in size but each datapoint has much less information in it which could reduse efficiency. It would
+be ideal to have more training data and more computing time regardless of architecture, but the
+limitations are seen especially in the CNN.
 
 ### 4.3: Future Work
 
+#### CNN Architecture Improvement
 We would like to test more CNN architectures, probably with more VGG blocks or other Resnets,
-to see if the accuracy can be improved. 
+to see if the accuracy of the CV method can be improved to be equal to or better than the KNN
+running on the features provided by the dataset. This may have to be done by brute force by
+training more models.
+
+#### RNN Inclusion
+We also were unable to implement the CNN-RNN fusion architecture planned for in the original 
+outline, so future work would include this. The output vectors from the CNN would serve as
+inputs to an RNN which could, theoretically, support inferences based off longer time samples,
+which may improve accuracy for the spectrogram CV approach. The input to the RNN could also be
+fed the mathematical features from the original dataset as the MLP layer of the CNN was in our
+current implementation. 
+
+#### Streamlined Live Inference
+The ability to make an inference from continuous live recording instead of taking a single 
+x-second sample would make the model more real-world applicable. An RNN would be useful in 
+updating inference over time as a song plays for longer.
 
 ---
 
@@ -245,22 +280,22 @@ Le Duong:
 - Wrote original spectrogram generator protocol
 - developed method to concatenate features onto last layer of CNN
 
-**estimated hours spent: 10**
+**estimated hours spent: x**
 
 Samrit Grover: 
 
 - 4x6 model exploration
 - Result reports and interpretation
 
-**estimated hours spent: 10**
+**estimated hours spent: x**
 
 Evangelos Neophytou: 
 
 - Model exploration: code, graphs, neural network imp
-- RNN implementation (not used in final product but in project)
+- RNN implementation (not used in final model but present in project)
 - PCA and K-means explorations
 
-**estimated hours spent: 10**
+**estimated hours spent: x**
 
 Caitlin Sullivan: 
 
@@ -270,5 +305,4 @@ Caitlin Sullivan:
 - CNN training and inference pipeline
 - Report
 
-**estimated hours spent: 10**
->>>>>>> 9ff4c834f41413537a1e9d99a7cb6264ee7dfd21
+**estimated hours spent: x**
