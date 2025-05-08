@@ -22,7 +22,7 @@ Does NOT remove rows from feature .csv files. You'll need to do this elsewhere.
 
 ### [spectrogram_generator.py](spectrogram_generator.py)
 
-A modified version of its parent program, [spectrogram_generator.ipynb](spectrogram_generator.ipynb)
+A modified version of its parent program, [Spectrogram_Generator_Source.ipynb](Spectrogram_Generator_Source.ipynb)
 (Authored by Le and adapted)
 
 Generate spectrograms of a set duration and size for the GTZAN dataset. You can just run this
@@ -92,6 +92,11 @@ Trained PyTorch model on [Google Drive](https://drive.google.com/file/d/1_mKhayw
 ### [ResNet-34 on 3-seocnd Spectrograms](CNN_v7_sec_resNet34/)
 
 Another architecture. The spectrogram generator is currently configured for this model.
+
+### [ResNet-34 on 3-seocnd Spectrograms with appended numeric features](CNN_v9_3sec_resnet34_appendedfeatures/)
+
+Same as the other architecture but before training the spectrogram image data is augmented with 57 numeric features provided
+by the GTZAN dataset csv.
 
 ## Model Loading/Inference
 

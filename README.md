@@ -8,7 +8,7 @@ Caitlin Sullivan <ccsulliv@usc.edu>
 
 # EE 460 Final Project: Music Genre Guesser
 
-Pytorch Model Record: [Google Drive]()
+### [goto: Repository Inventory](INVENTORY.md)
 
 ## 1. Introduction
 
@@ -211,15 +211,14 @@ be fed in for inference.
 
 ### 4.1: Model Performance on Train/Val/Test
 
-#### 10-Second Spectrogram Trained CNN
+#### V4: 10-Second Spectrogram Trained VGG
 
 Test Accuracy (last epoch): 78.9%
 
+![confusion matrix](./CNN_10sec_trained/confusionmatrix.png)
 
-![confusion matrix 1](./CNN_10sec_trained/confusionmatrix.png)
 
-
-#### 3-second Spectrogram Trained CNN
+#### V6: 3-second Spectrogram Trained VGG
 
 `Train Eval: 100%|██████████| 219/219 [08:44<00:00,  2.39s/batch, loss=0.129, acc=99.2]`
 
@@ -227,10 +226,24 @@ Test Accuracy (last epoch): 78.9%
 
 `Test: 100%|██████████| 47/47 [02:00<00:00,  2.55s/batch, loss=0.639, acc=78.7]`
 
-(no confusion matrix yet)
-
 This model overfit the train set. This might have been a result of the length of the 
 spectrogram or the depth of the neural network. 
+
+#### V7?: 3-Second Spectrogram Trained ResNet
+
+#### V9: 3-Second Spectrogram Trained ResNet with Appended Numeric Features
+
+`Train: 100%|██████████| 219/219 [01:41<00:00,  2.16batch/s, loss=1.53, acc=44.3]`
+
+`Train Eval: 100%|██████████| 219/219 [00:45<00:00,  4.78batch/s, loss=2.64, acc=54.7]`
+
+`Val: 100%|██████████| 47/47 [00:09<00:00,  4.79batch/s, loss=1.47, acc=54.1]`
+
+`Val: 100%|██████████| 47/47 [00:09<00:00,  4.74batch/s, loss=1.49, acc=52.2]`
+
+`Best Model Test accuracy: 0.5218`
+
+![confusion matrix](./CNN_v9_3sec_resnet34_appendedfeatures/resnet_confusion_matrix.png)
 
 ### 4.2: Problems and Challenges
 
@@ -269,6 +282,12 @@ The ability to make an inference from continuous live recording instead of takin
 x-second sample would make the model more real-world applicable. An RNN would be useful in 
 updating inference over time as a song plays for longer.
 
+#### Data Augmentation
+In order to improve the performance of the CNN, increase the dataset size and make it more 
+applicable to real-world data (and more accurate on clean, simulation data) by adding
+artificially deprecated versions of each audio sample to the dataset. This would increase 
+the dataset size and allow the CNN to recognize microphone noise and compression.
+
 ---
 
 ## 4. Task Summary and Teamwork Breakdown
@@ -280,14 +299,12 @@ Le Duong:
 - Wrote original spectrogram generator protocol
 - developed method to concatenate features onto last layer of CNN
 
-**estimated hours spent: x**
 
 Samrit Grover: 
 
 - 4x6 model exploration
 - Result reports and interpretation
 
-**estimated hours spent: x**
 
 Evangelos Neophytou: 
 
@@ -295,7 +312,6 @@ Evangelos Neophytou:
 - RNN implementation (not used in final model but present in project)
 - PCA and K-means explorations
 
-**estimated hours spent: x**
 
 Caitlin Sullivan: 
 
@@ -304,5 +320,3 @@ Caitlin Sullivan:
 - Adjusted spectrograms: resizing, downsampling for different CNN architectures
 - CNN training and inference pipeline
 - Report
-
-**estimated hours spent: x**
