@@ -209,7 +209,13 @@ be fed in for inference.
 
 ## 3. Outcomes
 
-### 3.1: Model Performance on Train/Val/Test
+### 3.1: CNN Models Performance on Train/Val/Test
+
+2 types of architectures were used: Mini-VGG and ResNet34
+
+Sources:
+1) [Mini-VGG: modified from lecture](https://github.com/keithchugg/ee460_spring2025/blob/5b3d0470705ff236a212415c1e510630627afd2d/lecture/02_fmnist_mlp_torch.ipynb)
+2) [ResNet34: modified from Kaggle](https://www.kaggle.com/code/khoongweihao/resnet-34-pytorch-starter-kit)
 
 #### V4: 10-Second Spectrogram Trained VGG
 
@@ -218,7 +224,7 @@ Validation Accuracy (last epoch): 78.9%
 ![confusion matrix](CNN/CNN_v4_10sec_trained/confusionmatrix.png)
 
 
-#### [V5: 15-second Spectrogram Mini-VGG (3-blocks)]([url](https://github.com/ccorduroy/genreguessr/blob/837f3f954a09e46376bf6a565d2d06fc632723ff/CNN/CNN_v9_3_sec_resNet34_w_features.py))
+#### [V5: 15-second Spectrogram Mini-VGG (3-blocks)](https://github.com/ccorduroy/genreguessr/blob/837f3f954a09e46376bf6a565d2d06fc632723ff/CNN/CNN_v9_3_sec_resNet34_w_features.py)
 
 #### V6: 3-second Spectrogram Trained VGG
 
