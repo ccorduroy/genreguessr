@@ -213,10 +213,12 @@ be fed in for inference.
 
 #### V4: 10-Second Spectrogram Trained VGG
 
-Test Accuracy (last epoch): 78.9%
+Validation Accuracy (last epoch): 78.9%
 
 ![confusion matrix](CNN/CNN_v4_10sec_trained/confusionmatrix.png)
 
+
+#### [V5: 15-second Spectrogram Mini-VGG (3-blocks)]([url](https://github.com/ccorduroy/genreguessr/blob/837f3f954a09e46376bf6a565d2d06fc632723ff/CNN/CNN_v9_3_sec_resNet34_w_features.py))
 
 #### V6: 3-second Spectrogram Trained VGG
 
