@@ -209,7 +209,7 @@ be fed in for inference.
 
 ## 3. Outcomes
 
-### 4.1: Model Performance on Train/Val/Test
+### 3.1: Model Performance on Train/Val/Test
 
 #### V4: 10-Second Spectrogram Trained VGG
 
@@ -229,23 +229,10 @@ Test Accuracy (last epoch): 78.9%
 This model overfit the train set. This might have been a result of the length of the 
 spectrogram or the depth of the neural network. 
 
-#### V7?: 3-Second Spectrogram Trained ResNet
+#### V7: 3-Second Spectrogram Trained ResNet
 
-#### V9: 3-Second Spectrogram Trained ResNet with Appended Numeric Features
 
-`Train: 100%|██████████| 219/219 [01:41<00:00,  2.16batch/s, loss=1.53, acc=44.3]`
-
-`Train Eval: 100%|██████████| 219/219 [00:45<00:00,  4.78batch/s, loss=2.64, acc=54.7]`
-
-`Val: 100%|██████████| 47/47 [00:09<00:00,  4.79batch/s, loss=1.47, acc=54.1]`
-
-`Val: 100%|██████████| 47/47 [00:09<00:00,  4.74batch/s, loss=1.49, acc=52.2]`
-
-`Best Model Test accuracy: 0.5218`
-
-![confusion matrix](CNN/CNN_v9_3sec_resnet34_with_features_trained/resnet_confusion_matrix.png)
-
-#### V10: 3-Second Spectrogram Traines Resnet with Appended Numeric Features (Re-Normalized)
+#### (BEST) V10: 3-Second Spectrogram Traines Resnet with Appended Numeric Features (Re-Normalized)
 
 `Train: 100%|██████████| 219/219 [01:42<00:00,  2.14batch/s, loss=0.587, acc=77.4]`
 
@@ -269,7 +256,7 @@ spectrogram or the depth of the neural network.
 
 </details>
 
-### 4.2: Problems and Challenges
+### 3.2: Problems and Challenges
 
 #### CNN Size and Computing Limits
 Each CNN training (did 7) took almost an entire day on one device. On GPU, the
@@ -285,7 +272,7 @@ in size but each datapoint has much less information in it which could reduse ef
 be ideal to have more training data and more computing time regardless of architecture, but the
 limitations are seen especially in the CNN.
 
-### 4.3: Future Work
+### 3.3: Future Work
 
 #### CNN Architecture Improvement
 We would like to test more CNN architectures, probably with more VGG blocks or other Resnets,
