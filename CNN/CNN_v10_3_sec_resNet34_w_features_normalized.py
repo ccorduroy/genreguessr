@@ -37,22 +37,22 @@ spectro_len = 3
 # NORMALIZING FEATURES:
 
 # Normalizing data
-df = pd.read_csv('features_3_sec.csv')
+df = pd.read_csv('../gtzan/features_3_sec.csv')
 print(df.shape)
 # Check for missing values
 print(f"Missing values in dataset: {df.isnull().sum().sum()}")
 
 # Scale features
 scalar = MinMaxScaler()
-# df_processed = df.drop(columns=['filename', 'label', "length"])
-df_processed_normalized = pd.DataFrame(scalar.fit_transform(df), columns=df.columns)
+df_processed = df.drop(columns=['filename', 'label', "length"])
+df_processed_normalized = pd.DataFrame(scalar.fit_transform(df_processed), columns=df_processed.columns)
 
-# Save the scaler to a file for lice demo
-joblib.dump(scalar, 'scalar.save')
+# Save the scaler to a file for live demo
+joblib.dump(scalar, '../gtzan/scalar.save')
 
 # Add back labels
 # df_processed_normalized = pd.concat([df_processed_normalized, df['label']], axis=1)
-df_processed_normalized.to_csv('features_3_sec_normalized.csv', index=False)
+df_processed_normalized.to_csv('./gtzan/features_3_sec_normalized.csv', index=False)
 
 
 
@@ -111,7 +111,7 @@ transform = transforms.Compose([
 # --- 2. Load dataset ---
 dataset = ImageWithUnlinkedFeaturesDataset(
     root_dir=f'sliding_spectrograms_{spectro_len}_seconds',
-    feature_csv='features_3_sec_normalized.csv',
+    feature_csv='./gtzan/features_3_sec_normalized.csv',
     transform=transform
 )
 
@@ -232,7 +232,6 @@ class ResNet34(nn.Module):
         return x
 
 model = ResNet34()
-summary(model, [(1,512,512),(1,57,1)])  # call summary before moving the model to a device...
 criterion = nn.CrossEntropyLoss() # includes softmax (for numerical stability)
 optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=reg_val)  # default learning rate is 0.001
 
@@ -251,6 +250,8 @@ else:
 
 print(f'Using device: {device}')
 model.to(device) # Move model to device
+# move this back onto line 235 if not using conda??
+summary(model, [(1,512,512),(1,57,1)])  # call summary before moving the model to a device...
 
 # Define function to call for each training epoch (one complete pass over the training set)
 def train(model, trainloader, criterion, optimizer, device):

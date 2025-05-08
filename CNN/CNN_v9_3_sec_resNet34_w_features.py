@@ -35,7 +35,29 @@ class ImageWithUnlinkedFeaturesDataset(Dataset):
     def __init__(self, root_dir, feature_csv, transform=None):
         self.root_dir = root_dir
         self.transform = transform
-        self.features = pd.read_csv(feature_csv).values.astype('float32')
+
+        def __init__(self, root_dir, feature_csv, transform=None):
+            self.root_dir = root_dir
+            self.transform = transform
+            # drops filename, duration, and label when reading self.features.
+            self.features = pd.read_csv(feature_csv).iloc[:, 2:-1].values.astype('float32')
+
+            # Collect image paths in consistent order
+            self.image_paths = []
+            self.labels = []
+            self.class_to_idx = {}
+
+            # Get class names from subfolders names
+            classes = sorted(os.listdir(root_dir))
+
+            for label_idx, class_name in enumerate(classes):
+                class_path = os.path.join(root_dir, class_name)
+                image_files = sorted(glob.glob(os.path.join(class_path, '*')))
+                self.image_paths.extend(image_files)
+                self.labels.extend([label_idx] * len(image_files))
+
+                # Optionally store class-to-index mapping
+                self.class_to_idx[class_name] = label_idx
 
         # Collect image paths in consistent order
         self.image_paths = []

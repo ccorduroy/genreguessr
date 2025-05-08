@@ -72,7 +72,7 @@ Another PCA exploration from early iterations.
 
 ## Trained CNNs
 
-### [MiniVGG on 3-second Spectrograms (available)](CNN_3sec_trained/)
+### [MiniVGG on 3-second Spectrograms (available)](CNN/CNN_v6_3sec_trained/)
 
 Trained PyTorch model on [Google Drive](https://drive.google.com/file/d/1Oh1phJA5a-hHz8WAXHOX1wS0f5qTMpUt/view?usp=sharing).
 
@@ -81,7 +81,7 @@ Dataset split indices and records on [Google Drive](https://drive.google.com/dri
 
 The spectrogram generator is currently configured for this model. 
 
-### [MiniVGG on 10-second Spectrograms (available)](CNN_10sec_trained/)
+### [MiniVGG on 10-second Spectrograms (available)](CNN/CNN_v4_10sec_trained/)
 
 Trained PyTorch model on [Google Drive](https://drive.google.com/file/d/1_mKhaywW2szC2p2WndR7mhWT63rcF4vV/view?usp=sharing).
 
@@ -89,11 +89,11 @@ Trained PyTorch model on [Google Drive](https://drive.google.com/file/d/1_mKhayw
 
 **I think the results of this one were a fluke (reshuffled when testing). No valid indices saved.
 
-### [ResNet-34 on 3-seocnd Spectrograms](CNN_v7_sec_resNet34/)
+### [ResNet-34 on 3-seocnd Spectrograms](CNN/CNN_v7_3sec_resNet34_trained/)
 
 Another architecture. The spectrogram generator is currently configured for this model.
 
-### [ResNet-34 on 3-seocnd Spectrograms with appended numeric features](CNN_v9_3sec_resnet34_appendedfeatures/)
+### [ResNet-34 on 3-seocnd Spectrograms with appended numeric features](CNN/CNN_v9_3sec_resnet34_with_features_trained/)
 
 Same as the other architecture but before training the spectrogram image data is augmented with 57 numeric features provided
 by the GTZAN dataset csv.

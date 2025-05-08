@@ -215,7 +215,7 @@ be fed in for inference.
 
 Test Accuracy (last epoch): 78.9%
 
-![confusion matrix](./CNN_10sec_trained/confusionmatrix.png)
+![confusion matrix](CNN/CNN_v4_10sec_trained/confusionmatrix.png)
 
 
 #### V6: 3-second Spectrogram Trained VGG
@@ -243,7 +243,31 @@ spectrogram or the depth of the neural network.
 
 `Best Model Test accuracy: 0.5218`
 
-![confusion matrix](./CNN_v9_3sec_resnet34_appendedfeatures/resnet_confusion_matrix.png)
+![confusion matrix](CNN/CNN_v9_3sec_resnet34_with_features_trained/resnet_confusion_matrix.png)
+
+#### V10: 3-Second Spectrogram Traines Resnet with Appended Numeric Features (Re-Normalized)
+
+`Train: 100%|██████████| 219/219 [01:42<00:00,  2.14batch/s, loss=0.587, acc=77.4]`
+
+`Train Eval: 100%|██████████| 219/219 [00:46<00:00,  4.70batch/s, loss=0.0136, acc=99.9]`
+
+`Val: 100%|██████████| 47/47 [00:09<00:00,  4.74batch/s, loss=0.251, acc=91.6]`
+
+`Val: 100%|██████████| 47/47 [00:11<00:00,  4.22batch/s, loss=0.252, acc=91.7]`
+
+`Best Model Test accuracy: 0.9167`
+
+![confusion matrix](CNN/CNN_v10_3sec_resnet34_with_features_trained/confusion_matrix.png)
+
+<details>
+<summary>Loss and Accuracy graphs per epoch (titles are wrong but data is correct)</summary>
+
+![loss](CNN/CNN_v10_3sec_resnet34_with_features_trained/loss.png)
+
+![acc](CNN/CNN_v10_3sec_resnet34_with_features_trained/acc.png)
+
+
+</details>
 
 ### 4.2: Problems and Challenges
 
