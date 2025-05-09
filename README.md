@@ -29,24 +29,26 @@ real-world testing beyond the original dataset.
 
 ### 1.2: Summary of Existing Approaches
 
-Computer vision methods on spectrograms:
+[Computer vision methods on spectrograms](https://github.com/crlandsc/Music-Genre-Classification-Using-Convolutional-Neural-Networks/blob/main/code/02_modeling.ipynb):
 - Perform FFT on wav files (time domain) and analyze song in frequency domain. 
 - Using an overlapping sample sliding window (~10ms) to create spectrograms.
 - Spectrograms are then fed into CNN.
+- CNN model used: [(Conv2d -> BatchNormalization -> MaxPooling -> Dropout) x 3] -> MLP_Classifer
+- Accuracy: 83.8%
 
 Training MLPs on known numerical features (GTZAN 60-feature, Spotify API features):
-- Spotify API uses abstract features that are combinations of frequency data. Some repos on GitHub tried running FNNs on this set of features and got very low accuracy compared to spectrogram CV.
+- Spotify API uses abstract features that are combinations of frequency data. Some repos on GitHub tried running FNNs on this set of features and got very low accuracy compared to spectrogram CV. (The project we linked [here](https://github.com/crlandsc/Music-Genre-Classification-Using-Convolutional-Neural-Networks/blob/main/code/02_modeling.ipynb) uses DNN, which is essentially deeper FNN, and got 51.5% accuracy)
 - Codes on Kaggle under GTZAN have tried most linear models on the dataset with varying outcomes.
 
 
 ### 1.3: Anticipated Results and Milestones
 
-1. It is expected that a CNN+RNN model would have higher accuracy compared to CNN alone. A CNN
-in general will have better performance than non deep-learning models.
+1. We expect that integrating a CNN+RNN model would have higher accuracy compared to CNN alone. A CNN in general will have better performance than non deep-learning models.
 2. Appending numerical features to spectrograms would increase the accuracy. 
-3. We will train multiple models (PCA+Random Forest, RBF+FNN) to compare with CNN model.
-4 We will explore various spectrogram lengths (different Nyquist frequencies & fft bins, 
+3. We will train multiple numerical feature models (PCA+Random Forest, RBF+FNN) to compare with the spectrogram model (CNN).
+4. We will explore various spectrogram lengths (different Nyquist frequencies & fft bins, 
 different time length).
+5. We will explore a couple of different CNN architectures (a simple and a more complicated one) and explore how much it affect the accuracies.
 
 ---
 
