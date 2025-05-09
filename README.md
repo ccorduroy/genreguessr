@@ -59,10 +59,10 @@ There are 10 different labels which are based on the music genre: `blues`, `clas
 music genre, there are 100 audio files of length 30 seconds. 
 
 For each audio file there are 59 
-features derived including `filename`, `length`, `chroma_stft_mean`, `Rms_mean`, 
+features derived including `filename`, `length`, `chroma_stft_mean / var`, `RMS_mean / var`, 
 `spectral_centroid_mean / var`, `spectral_bandwidth_mean / var`, `rolloff_mean / var`, 
 `zero_crossing_rate_mean / var`, `harmony_mean / var`, `perceptr_mean / var`, `tempo`, 
-`mfcc1_mean`. There are no missing values in any of the data columns, so no imputation 
+and 20 `mfcc_mean / var`. There are no missing values in any of the data columns, so no imputation 
 is required. We removed the filename and length column since they’re not indicative 
 of the song genre. For each of the features, we performed Min-Max normalization to 
 scale the values between 0 and 1.
