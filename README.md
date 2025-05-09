@@ -212,6 +212,18 @@ Note: Trial in these graphs refers to one iteration of hyperparameter tuning.
 
 ### 2.3: Main Model Choice and Training Approaches
 
+We used a convolutional neural network as our primary approach, utilizing two different architectures. These
+two architectures were both optimized with different spectrogram lengths and depths, discussed/analyzed later
+in this report.
+
+#### Architecture 1: Mini VGG
+
+![mini vgg architecture](writeup_images/vgg.png)
+
+#### Architecture 2: ResNet 34
+
+![resnet34](writeup_images/resnet.png)
+
 ### 2.4: Real-World Inference
 
 [live_sample_denoised.py](live_sample_denoised.py) records 10 seconds of audio and uses
@@ -274,7 +286,7 @@ genres or instruments as well, but that tuning isn't used here. \
 
 ![Denoised](./writeup_images/denoised_live_audio_spectrogram.png "Denoised Sample")
 
-#### Real-World Inference
+#### Inference
 
 This denoised sample is turned into a spectrogram of the size expected by the CNN and can then
 be fed in for inference. 
