@@ -10,7 +10,7 @@ Original: ([Kaggle](https://www.kaggle.com/datasets/andradaolteanu/gtzan-dataset
 
 ### [gtzan local copy](gtzan/)
 
-Should be cleaned.
+Should be cleaned. Includes feature normalization included. 
 
 ### [dataset_health_check.py](dataset_health_check.py)
 
@@ -48,57 +48,39 @@ script to generate spectrograms ONLY for the model in the same directory.
 
 ## Explorations
 
-### [model exploration (self-contained)](model_exploration/)
+### [model exploration pipeline (self-contained)](pipeline/)
 
 Run main.py to do the exploration again. Graphs are already generated and in a subdirectory, 
 so there's no need. 
 
-### Others:
-
-### [rnn.ipynb](rnn.ipynb)
-
-RNN exploratory notebook. Didn't make the cut into the final architecture but is our proof-of-concept
-for future work.
-
-### [kmeansmodel.ipynb](./model_exploration/other/kmeansmodel.ipynb)
-
-K-means clustering transformation exploration from early iterations.
-
-### [pcamodel.ipynb](./model_exploration/other/pcamodel.ipynb)
-
-Another PCA exploration from early iterations.
-
-**note**: The other files inside model_exploration are Python copies of the Jupyter Notebooks.
+Additional disjoint explorations in [model_exploration](model_exploration/)
 
 ## Trained CNNs
 
-### [MiniVGG on 3-second Spectrograms (available)](CNN/CNN_v6_3sec_trained/)
+### [V3 - MiniVGG 10-second Spectrograms 2 VGG blocks (59% acc)](CNN/test_CNN_v3.ipynb)
 
-Trained PyTorch model on [Google Drive](https://drive.google.com/file/d/1Oh1phJA5a-hHz8WAXHOX1wS0f5qTMpUt/view?usp=sharing).
+PyTorch model on [Google Drive](https://drive.google.com/file/d/1601cNrAf7GmUEvB8PuA6o_q75wxHrsq2/view?usp=sharing)
+(no indices :( )
 
-Dataset split indices and records on [Google Drive](https://drive.google.com/drive/folders/11s1Yt4oBUWH4NXrJmro4rryV5X_p_jPR?usp=sharing). 
+### [V4 - MiniVGG 10-second Spectrograms 3 VGG blocks (Failed - re-scrambled dataset split when tested)](CNN/CNN_v4_10sec_trained/)
 
+PyTorch model on [Google Drive](https://drive.google.com/file/d/1_mKhaywW2szC2p2WndR7mhWT63rcF4vV/view?usp=sharing)
 
-The spectrogram generator is currently configured for this model. 
+### [V5 - MiniVGG 15-second Spectrograms 3 VGG blocks](CNN/test_CNN_v5_15_sec.ipynb)
 
-### [MiniVGG on 10-second Spectrograms (available)](CNN/CNN_v4_10sec_trained/)
+PyTorch model on [Google Drive](https://drive.google.com/file/d/1EIHywgUoRt2RBCf7Lm48tnj_GCotLJkt/view?usp=sharing)
 
-Trained PyTorch model on [Google Drive](https://drive.google.com/file/d/1_mKhaywW2szC2p2WndR7mhWT63rcF4vV/view?usp=sharing).
+### [V7 - ResNet34 (88% acc) (used in live demo)](CNN/CNN_v7_3sec_resNet34_trained/)
 
-** when you're generating spectrograms for this model, use the python script in its directory.
+PyTorch model on [Google Drive](https://drive.google.com/file/d/1eCEd4OZKG0cxTSgLtyc0yAY4KobI2mK7/view?usp=sharing)
 
-**I think the results of this one were a fluke (reshuffled when testing). No valid indices saved.
+### [V9 - ResNet34 with Appended Features (Failed - not normalized) (53% acc)](CNN/CNN_v9_3_sec_resnet34_with_features_trained/)
 
-### [ResNet-34 on 3-seocnd Spectrograms](CNN/CNN_v7_3sec_resNet34_trained/)
+PyTorch model on [Google Drive](https://drive.google.com/drive/folders/1WjDy1N1OjULqLlMynVeEZ3TB-CxSaKXA?usp=sharing)
 
-Another architecture. The spectrogram generator is currently configured for this model.
+### [V10 - ResNet34 with Appended Features (92% acc)](CNN/CNN_v10_3_sec_resnet34_with_features_trained/)
 
-### [ResNet-34 on 3-seocnd Spectrograms with appended numeric features](CNN/CNN_v9_3sec_resnet34_with_features_trained/)
-
-Same as the other architecture but before training the spectrogram image data is augmented with 57 numeric features provided
-by the GTZAN dataset csv.
-
-## Model Loading/Inference
+PyTorch model on [Google Drive](https://drive.google.com/drive/folders/1fOcC0cJIbs21rkJkSn8TwJSQs_Z7BOfQ?usp=sharing)
 
 ## Live Recording
 
@@ -109,5 +91,3 @@ expected by the CNN. CNN-ready spectrogram as well as the raw and denoised .wav 
 to the main directory (this script is only meant for a single demo).
 
 Taking a new recording will overwrite previous one unless it's moved out of the top directory.
-
-
