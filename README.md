@@ -363,21 +363,195 @@ Validation Accuracy (last epoch): 78.9%
 
 #### [V5: 15-second Spectrogram Mini-VGG (3-blocks)](https://github.com/ccorduroy/genreguessr/blob/837f3f954a09e46376bf6a565d2d06fc632723ff/CNN/CNN_v9_3_sec_resNet34_w_features.py)
 
-#### V6: 3-second Spectrogram Trained VGG
 
-`Train Eval: 100%|██████████| 219/219 [08:44<00:00,  2.39s/batch, loss=0.129, acc=99.2]`
+#### [(DEMO) V7: 3-Second Spectrogram Trained ResNet ](https://github.com/ccorduroy/genreguessr/blob/aa168d09aac060f386d8db754d42827f9c3113f8/CNN_v7_3sec_ResNet_w_demo/test_CNN_v7_3_sec.ipynb)
 
-`Val: 100%|██████████| 47/47 [01:53<00:00,  2.42s/batch, loss=0.727, acc=76.2]`
+```
+----------------------------------------------------------------
+        Layer (type)               Output Shape         Param #
+================================================================
+            Conv2d-1         [-1, 64, 259, 259]             256
+       BatchNorm2d-2         [-1, 64, 259, 259]             128
+              ReLU-3         [-1, 64, 259, 259]               0
+         MaxPool2d-4         [-1, 64, 129, 129]               0
+            Conv2d-5         [-1, 64, 129, 129]          36,864
+       BatchNorm2d-6         [-1, 64, 129, 129]             128
+              ReLU-7         [-1, 64, 129, 129]               0
+            Conv2d-8         [-1, 64, 129, 129]          36,864
+       BatchNorm2d-9         [-1, 64, 129, 129]             128
+    ResidualBlock-10         [-1, 64, 129, 129]               0
+           Conv2d-11           [-1, 64, 65, 65]          36,864
+      BatchNorm2d-12           [-1, 64, 65, 65]             128
+             ReLU-13           [-1, 64, 65, 65]               0
+           Conv2d-14           [-1, 64, 65, 65]          36,864
+      BatchNorm2d-15           [-1, 64, 65, 65]             128
+           Conv2d-16           [-1, 64, 65, 65]           4,096
+      BatchNorm2d-17           [-1, 64, 65, 65]             128
+    ResidualBlock-18           [-1, 64, 65, 65]               0
+           Conv2d-19          [-1, 128, 65, 65]          73,728
+      BatchNorm2d-20          [-1, 128, 65, 65]             256
+             ReLU-21          [-1, 128, 65, 65]               0
+           Conv2d-22          [-1, 128, 65, 65]         147,456
+      BatchNorm2d-23          [-1, 128, 65, 65]             256
+           Conv2d-24          [-1, 128, 65, 65]           8,192
+      BatchNorm2d-25          [-1, 128, 65, 65]             256
+    ResidualBlock-26          [-1, 128, 65, 65]               0
+           Conv2d-27          [-1, 128, 33, 33]         147,456
+      BatchNorm2d-28          [-1, 128, 33, 33]             256
+             ReLU-29          [-1, 128, 33, 33]               0
+           Conv2d-30          [-1, 128, 33, 33]         147,456
+      BatchNorm2d-31          [-1, 128, 33, 33]             256
+           Conv2d-32          [-1, 128, 33, 33]          16,384
+      BatchNorm2d-33          [-1, 128, 33, 33]             256
+    ResidualBlock-34          [-1, 128, 33, 33]               0
+           Conv2d-35          [-1, 256, 33, 33]         294,912
+      BatchNorm2d-36          [-1, 256, 33, 33]             512
+             ReLU-37          [-1, 256, 33, 33]               0
+           Conv2d-38          [-1, 256, 33, 33]         589,824
+      BatchNorm2d-39          [-1, 256, 33, 33]             512
+           Conv2d-40          [-1, 256, 33, 33]          32,768
+      BatchNorm2d-41          [-1, 256, 33, 33]             512
+    ResidualBlock-42          [-1, 256, 33, 33]               0
+           Conv2d-43          [-1, 256, 17, 17]         589,824
+      BatchNorm2d-44          [-1, 256, 17, 17]             512
+             ReLU-45          [-1, 256, 17, 17]               0
+           Conv2d-46          [-1, 256, 17, 17]         589,824
+      BatchNorm2d-47          [-1, 256, 17, 17]             512
+           Conv2d-48          [-1, 256, 17, 17]          65,536
+      BatchNorm2d-49          [-1, 256, 17, 17]             512
+    ResidualBlock-50          [-1, 256, 17, 17]               0
+           Conv2d-51          [-1, 512, 17, 17]       1,179,648
+      BatchNorm2d-52          [-1, 512, 17, 17]           1,024
+             ReLU-53          [-1, 512, 17, 17]               0
+           Conv2d-54          [-1, 512, 17, 17]       2,359,296
+      BatchNorm2d-55          [-1, 512, 17, 17]           1,024
+           Conv2d-56          [-1, 512, 17, 17]         131,072
+      BatchNorm2d-57          [-1, 512, 17, 17]           1,024
+    ResidualBlock-58          [-1, 512, 17, 17]               0
+           Conv2d-59            [-1, 512, 9, 9]       2,359,296
+      BatchNorm2d-60            [-1, 512, 9, 9]           1,024
+             ReLU-61            [-1, 512, 9, 9]               0
+           Conv2d-62            [-1, 512, 9, 9]       2,359,296
+      BatchNorm2d-63            [-1, 512, 9, 9]           1,024
+           Conv2d-64            [-1, 512, 9, 9]         262,144
+      BatchNorm2d-65            [-1, 512, 9, 9]           1,024
+    ResidualBlock-66            [-1, 512, 9, 9]               0
+        AvgPool2d-67            [-1, 512, 4, 4]               0
+           Linear-68                 [-1, 1000]       8,193,000
+             ReLU-69                 [-1, 1000]               0
+      BatchNorm1d-70                 [-1, 1000]           2,000
+        Dropout1d-71                 [-1, 1000]               0
+           Linear-72                   [-1, 10]          10,010
+================================================================
+Total params: 19,722,450
+Trainable params: 19,722,450
+Non-trainable params: 0
+----------------------------------------------------------------
+Input size (MB): 1.00
+Forward/backward pass size (MB): 246.35
+Params size (MB): 75.24
+Estimated Total Size (MB): 322.58
+----------------------------------------------------------------
 
-`Test: 100%|██████████| 47/47 [02:00<00:00,  2.55s/batch, loss=0.639, acc=78.7]`
+Val: 100%|██████████| 47/47 [01:31<00:00,  1.94s/batch, loss=0.323, acc=88.5]
+Test accuracy: 0.8847
+```
+As we can see in the plots before, the ResNet34 model has a much higher accuracy compared to any of the Mini-VGG models and it also does alot better in terms of generalization. Believe the size of the model, as discussed in previous sections, helps alot with allowing the deeper layers to see more of the original image.
 
-This model overfit the train set. This might have been a result of the length of the 
-spectrogram or the depth of the neural network. 
+![image](https://github.com/user-attachments/assets/85bfacac-013b-47dc-ad77-30e2798ceb2e)
+![image](https://github.com/user-attachments/assets/58893aca-bfcf-4e78-b668-8f30bd5f378f)
+![image](https://github.com/user-attachments/assets/46650a48-d60e-4e99-b8f3-eb1c4c2e738c)
 
-#### V7: 3-Second Spectrogram Trained ResNet
 
+#### [(BEST) V10: 3-Second Spectrogram Traines Resnet with Appended Numeric Features (Re-Normalized)](https://github.com/ccorduroy/genreguessr/blob/aa168d09aac060f386d8db754d42827f9c3113f8/CNN/CNN_v10_3_sec_resNet34_w_features_normalized.py)
 
-#### (BEST) V10: 3-Second Spectrogram Traines Resnet with Appended Numeric Features (Re-Normalized)
+```
+----------------------------------------------------------------
+        Layer (type)               Output Shape         Param #
+================================================================
+            Conv2d-1         [-1, 64, 259, 259]             256
+       BatchNorm2d-2         [-1, 64, 259, 259]             128
+              ReLU-3         [-1, 64, 259, 259]               0
+         MaxPool2d-4         [-1, 64, 129, 129]               0
+            Conv2d-5         [-1, 64, 129, 129]          36,864
+       BatchNorm2d-6         [-1, 64, 129, 129]             128
+              ReLU-7         [-1, 64, 129, 129]               0
+            Conv2d-8         [-1, 64, 129, 129]          36,864
+       BatchNorm2d-9         [-1, 64, 129, 129]             128
+    ResidualBlock-10         [-1, 64, 129, 129]               0
+           Conv2d-11           [-1, 64, 65, 65]          36,864
+      BatchNorm2d-12           [-1, 64, 65, 65]             128
+             ReLU-13           [-1, 64, 65, 65]               0
+           Conv2d-14           [-1, 64, 65, 65]          36,864
+      BatchNorm2d-15           [-1, 64, 65, 65]             128
+           Conv2d-16           [-1, 64, 65, 65]           4,096
+      BatchNorm2d-17           [-1, 64, 65, 65]             128
+    ResidualBlock-18           [-1, 64, 65, 65]               0
+           Conv2d-19          [-1, 128, 65, 65]          73,728
+      BatchNorm2d-20          [-1, 128, 65, 65]             256
+             ReLU-21          [-1, 128, 65, 65]               0
+           Conv2d-22          [-1, 128, 65, 65]         147,456
+      BatchNorm2d-23          [-1, 128, 65, 65]             256
+           Conv2d-24          [-1, 128, 65, 65]           8,192
+      BatchNorm2d-25          [-1, 128, 65, 65]             256
+    ResidualBlock-26          [-1, 128, 65, 65]               0
+           Conv2d-27          [-1, 128, 33, 33]         147,456
+      BatchNorm2d-28          [-1, 128, 33, 33]             256
+             ReLU-29          [-1, 128, 33, 33]               0
+           Conv2d-30          [-1, 128, 33, 33]         147,456
+      BatchNorm2d-31          [-1, 128, 33, 33]             256
+           Conv2d-32          [-1, 128, 33, 33]          16,384
+      BatchNorm2d-33          [-1, 128, 33, 33]             256
+    ResidualBlock-34          [-1, 128, 33, 33]               0
+           Conv2d-35          [-1, 256, 33, 33]         294,912
+      BatchNorm2d-36          [-1, 256, 33, 33]             512
+             ReLU-37          [-1, 256, 33, 33]               0
+           Conv2d-38          [-1, 256, 33, 33]         589,824
+      BatchNorm2d-39          [-1, 256, 33, 33]             512
+           Conv2d-40          [-1, 256, 33, 33]          32,768
+      BatchNorm2d-41          [-1, 256, 33, 33]             512
+    ResidualBlock-42          [-1, 256, 33, 33]               0
+           Conv2d-43          [-1, 256, 17, 17]         589,824
+      BatchNorm2d-44          [-1, 256, 17, 17]             512
+             ReLU-45          [-1, 256, 17, 17]               0
+           Conv2d-46          [-1, 256, 17, 17]         589,824
+      BatchNorm2d-47          [-1, 256, 17, 17]             512
+           Conv2d-48          [-1, 256, 17, 17]          65,536
+      BatchNorm2d-49          [-1, 256, 17, 17]             512
+    ResidualBlock-50          [-1, 256, 17, 17]               0
+           Conv2d-51          [-1, 512, 17, 17]       1,179,648
+      BatchNorm2d-52          [-1, 512, 17, 17]           1,024
+             ReLU-53          [-1, 512, 17, 17]               0
+           Conv2d-54          [-1, 512, 17, 17]       2,359,296
+      BatchNorm2d-55          [-1, 512, 17, 17]           1,024
+           Conv2d-56          [-1, 512, 17, 17]         131,072
+      BatchNorm2d-57          [-1, 512, 17, 17]           1,024
+    ResidualBlock-58          [-1, 512, 17, 17]               0
+           Conv2d-59            [-1, 512, 9, 9]       2,359,296
+      BatchNorm2d-60            [-1, 512, 9, 9]           1,024
+             ReLU-61            [-1, 512, 9, 9]               0
+           Conv2d-62            [-1, 512, 9, 9]       2,359,296
+      BatchNorm2d-63            [-1, 512, 9, 9]           1,024
+           Conv2d-64            [-1, 512, 9, 9]         262,144
+      BatchNorm2d-65            [-1, 512, 9, 9]           1,024
+    ResidualBlock-66            [-1, 512, 9, 9]               0
+        AvgPool2d-67            [-1, 512, 4, 4]               0
+           Linear-68                 [-1, 1000]       8,250,000
+             ReLU-69                 [-1, 1000]               0
+      BatchNorm1d-70                 [-1, 1000]           2,000
+        Dropout1d-71                 [-1, 1000]               0
+           Linear-72                   [-1, 10]          10,010
+================================================================
+Total params: 19,779,450
+Trainable params: 19,779,450
+Non-trainable params: 0
+----------------------------------------------------------------
+Input size (MB): 57.00
+Forward/backward pass size (MB): 246.35
+Params size (MB): 75.45
+Estimated Total Size (MB): 378.80
+----------------------------------------------------------------
+```
 
 `Train: 100%|██████████| 219/219 [01:42<00:00,  2.14batch/s, loss=0.587, acc=77.4]`
 
@@ -389,11 +563,11 @@ spectrogram or the depth of the neural network.
 
 `Best Model Test accuracy: 0.9167`
 
-![confusion matrix](CNN/CNN_v10_3sec_resnet34_with_features_trained/confusion_matrix.png)
-
 ![loss](CNN/CNN_v10_3sec_resnet34_with_features_trained/loss.png)
 
 ![acc](CNN/CNN_v10_3sec_resnet34_with_features_trained/acc.png)
+
+![confusion matrix](CNN/CNN_v10_3sec_resnet34_with_features_trained/confusion_matrix.png)
 
 ### 3.2: Problems and Challenges
 
