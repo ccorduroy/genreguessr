@@ -354,17 +354,75 @@ Test accuracy: 0.5990
 ![v3_acc](https://github.com/user-attachments/assets/cac21d45-ca87-498e-ad6a-32b4e13ca3da)
 ![v3_loss](https://github.com/user-attachments/assets/d3839a46-3580-4033-8d7b-9a1b6be6ca31)
 
-#### V4: 10-Second Spectrogram Trained VGG
-
-Validation Accuracy (last epoch): 78.9%
-
-![confusion matrix](CNN/CNN_v4_10sec_trained/confusionmatrix.png)
-
 
 #### [V5: 15-second Spectrogram Mini-VGG (3-blocks)](https://github.com/ccorduroy/genreguessr/blob/837f3f954a09e46376bf6a565d2d06fc632723ff/CNN/CNN_v9_3_sec_resNet34_w_features.py)
 
+Version 5 is still a Mini-VGG, with the exception that it is now 3 mini-vgg blocks instead of 2 in version 3. 
 
-#### [(DEMO) V7: 3-Second Spectrogram Trained ResNet ](https://github.com/ccorduroy/genreguessr/blob/aa168d09aac060f386d8db754d42827f9c3113f8/CNN_v7_3sec_ResNet_w_demo/test_CNN_v7_3_sec.ipynb)
+```
+----------------------------------------------------------------
+        Layer (type)               Output Shape         Param #
+================================================================
+            Conv2d-1         [-1, 32, 480, 640]             320
+              ReLU-2         [-1, 32, 480, 640]               0
+       BatchNorm2d-3         [-1, 32, 480, 640]              64
+            Conv2d-4         [-1, 32, 480, 640]           9,248
+              ReLU-5         [-1, 32, 480, 640]               0
+       BatchNorm2d-6         [-1, 32, 480, 640]              64
+         MaxPool2d-7         [-1, 32, 240, 320]               0
+         Dropout2d-8         [-1, 32, 240, 320]               0
+            Conv2d-9         [-1, 64, 240, 320]          18,496
+             ReLU-10         [-1, 64, 240, 320]               0
+      BatchNorm2d-11         [-1, 64, 240, 320]             128
+           Conv2d-12         [-1, 64, 240, 320]          36,928
+             ReLU-13         [-1, 64, 240, 320]               0
+      BatchNorm2d-14         [-1, 64, 240, 320]             128
+        MaxPool2d-15         [-1, 64, 120, 160]               0
+        Dropout2d-16         [-1, 64, 120, 160]               0
+           Conv2d-17        [-1, 128, 120, 160]          73,856
+             ReLU-18        [-1, 128, 120, 160]               0
+      BatchNorm2d-19        [-1, 128, 120, 160]             256
+           Conv2d-20        [-1, 128, 120, 160]         147,584
+             ReLU-21        [-1, 128, 120, 160]               0
+      BatchNorm2d-22        [-1, 128, 120, 160]             256
+        MaxPool2d-23          [-1, 128, 60, 80]               0
+        Dropout2d-24          [-1, 128, 60, 80]               0
+          Flatten-25               [-1, 614400]               0
+           Linear-26                  [-1, 512]     314,573,312
+             ReLU-27                  [-1, 512]               0
+      BatchNorm1d-28                  [-1, 512]           1,024
+        Dropout1d-29                  [-1, 512]               0
+           Linear-30                   [-1, 10]           5,130
+================================================================
+Total params: 314,866,794
+Trainable params: 314,866,794
+Non-trainable params: 0
+----------------------------------------------------------------
+Input size (MB): 1.17
+Forward/backward pass size (MB): 857.83
+Params size (MB): 1201.12
+Estimated Total Size (MB): 2060.12
+----------------------------------------------------------------
+
+Val: 100%|██████████| 13/13 [01:04<00:00,  4.94s/batch, loss=0.95, acc=68.7] 
+Test accuracy: 0.6865
+```
+
+The accuracy is roughly a 10% increase from version 3 by just adding another block of mini-vgg and increasing the depth of the NN. The drawback was that it did also increase the training time for 1 epoch from 6 minutes (v3) to 12 minutes (v5). However, this goes to show that the learning did not cap off at 4 Conv2d layers and increasing the depth will help increase accuracy. Because of the vanishing gradient problem, we didn't want to just increase the number of blocks. Even with using ReLU as our activation function, it still somwhat contribute to the vanishing gradient. Hence, from here, we decided to diverge from the Mini-VGG architecture and used the ResNet34 instead as it allows the convolution to skip some layers and help with the vanishing gradient problem while being deep enough to allow the model to continue training. 
+
+![loss](https://github.com/user-attachments/assets/91c7438f-dd3a-43c1-aa50-a95e5245bc5f)
+![acc](https://github.com/user-attachments/assets/a981f7ef-4c95-475b-888f-ab13800d1e19)
+![conf mat](https://github.com/user-attachments/assets/a2d6e02f-748e-4d37-b9e9-b04a120dd1cd)
+
+#### [(DEMO) V7: 3-Second Spectrogram Trained ResNet34 ](https://github.com/ccorduroy/genreguessr/blob/aa168d09aac060f386d8db754d42827f9c3113f8/CNN_v7_3sec_ResNet_w_demo/test_CNN_v7_3_sec.ipynb)
+
+This is the model we decided to use during our live demo. The architecture was not a pre-trained model. Instead, this the help of[ this Kaggle project on the ResNet34](https://www.kaggle.com/code/khoongweihao/resnet-34-pytorch-starter-kit), we were able to get the (almost) ResNet34 architecture implemented using torch.nn. This was really helpful because:
+1) We wanted to avoid using pre-trained model as that defeats the purpose of use doing CNN model exploration.
+2) This allows us to modify the architecture freely to fit our use (this mainly includes adding our own Dense/Classifying layers and gave us alot of dimensionality freedom, which is very helpful when appending features)
+3) Allows us to see how the ResNet works.
+4) Allows us to train our own weights to test against the Mini-VGG using the same dataset.
+
+Note: We also decreased our spectrogram length to 3sec to enlarge the dataset, which would definitely help increase the accuracy. 3 seconds also seem to be the ideal length in many ML spectrogram projects that we see. 
 
 ```
 ----------------------------------------------------------------
@@ -464,6 +522,12 @@ As we can see in the plots before, the ResNet34 model has a much higher accuracy
 
 
 #### [(BEST) V10: 3-Second Spectrogram Traines Resnet with Appended Numeric Features (Re-Normalized)](https://github.com/ccorduroy/genreguessr/blob/aa168d09aac060f386d8db754d42827f9c3113f8/CNN/CNN_v10_3_sec_resNet34_w_features_normalized.py)
+
+Ultimately, our goal was to feed our CNN output + features with an RNN model to allow further learning, and hopefully increase the accuracy. However, due to time-contraints, we weren't able to integrate the combined CNN+RNN. Instead, due to our past high result with the FNN that Samrit trained, we were hoping that feeding in the hand-design features to the MLP layer along with the features fron convolution would drives up the accuracy as well. 
+
+Unfortunately, while we sucessfully got the features to pass into the CNN, we made the mistake of not normalizing the features and thus couldn't produce any meaningful results. However, after our demo, we retrained the model with the normalized hand-design features and our accuracy increased to 91.67% as shown below, which is a 3.2% increase from v7 (CNN without the hand-design features). 
+
+Overall, we think the accuracy could improve even more if we were to somehow normalize the features from the convolutional layers as well. However, since they're all learned and we wouldn't have those features until each datapoint is trained, it's very difficult to normalize them. However, perhaps we could instead sample the average range of those learned features and normalize our hand-design features to match the learned features. This would be a very interesting future experiment.
 
 ```
 ----------------------------------------------------------------
