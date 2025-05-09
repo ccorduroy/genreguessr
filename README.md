@@ -144,9 +144,7 @@ Note: Trial in these graphs refers to one iteration of hyperparameter tuning.
 
 ### 2.3: Main Model Choice and Training Approaches
 
-### 2.4: Final System Architecture
-
-### 2.5: Real-World Inference
+### 2.4: Real-World Inference
 
 [live_sample_denoised.py](live_sample_denoised.py) records 10 seconds of audio and uses
 **spectral subtraction** to remove static background noise. This method uses a reference 
