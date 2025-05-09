@@ -307,6 +307,14 @@ applicable to real-world data (and more accurate on clean, simulation data) by a
 artificially deprecated versions of each audio sample to the dataset. This would increase 
 the dataset size and allow the CNN to recognize microphone noise and compression.
 
+### 3.4: Conclusions & What We Learned
+-The CNN on 10-second spectrograms achieved a test accuracy of ~79%, outperforming many traditional machine learning approaches.
+-Our CNN-based models successfully classified songs into 10 genres using spectrograms from the GTZAN dataset.
+-The hybrid CNN+RNN architecture (planned) is promising for capturing both spatial and temporal patterns in audio, though not fully implemented yet.
+-The Linear Model (KNN) on 10-second audiofiles achieved a test accuracy of ~93%, outperforming many traditional machine learning approaches.
+-The project highlighted the importance of feature quality, data augmentation, and architecture choice in music genre classification tasks.
+-Our live audio inference pipeline worked effectively, with real-world spectrograms being denoised, processed, and classified by the trained model.
+
 ---
 
 ## 4. Task Summary and Teamwork Breakdown
