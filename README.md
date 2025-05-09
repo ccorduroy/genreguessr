@@ -100,7 +100,7 @@ models = {
 ![summary](./model_exploration/plots/accuracy_table.png)
 
 #### All Loss and Accuracy Functions: See [model exploration plots](model_exploration/plots)
-### Note trial refers to one iteration of hyperparameter tuning. 
+Note trial refers to one iteration of hyperparameter tuning. 
 
 
 #### Transformation Key Insights
