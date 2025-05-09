@@ -75,7 +75,7 @@ Some of the .wav files are corrupted (one in our download, to be exact).
 [dataset_health_check.py](dataset_health_check.py) examines all .wav files for validity 
 and quarantines corrupted files so they are not used in the train/test split. 
 
-One of the rows (corresponding to one 3-second sample) was missing and caused mismatch in the generated 3-seconds spectrogram dataset and the 3-second hand-design features dataset.
+One of the rows in 3-sec-feature .csv (corresponding to one 3-second sample) was missing and caused mismatch in the generated 3-seconds spectrogram dataset and the 3-second hand-design features dataset. This was a huge issue when we tried to integrate the hand-design features with our CNN because we were pulling data from 2 different datasets and tried to combine them. We ended up cross-checking the size of each set and deleted the extra image in our spec. dataset. In hindsight, this wouldn't have been an issue if we were to generate both spectrogram and hand-design features from the same 3-second audio. We will definitely keep this in mind for furture cases. 
 
 ### 2.2: Model Exploration
 
