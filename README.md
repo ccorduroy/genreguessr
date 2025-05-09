@@ -56,6 +56,8 @@ different time length).
 
 ### 2.1: Data Strategy (Collecting, Cleaning, Augmenting)
 
+Dataset: [GTZAN](https://www.kaggle.com/datasets/andradaolteanu/gtzan-dataset-music-genre-classification) (source: Kaggle)
+
 There are 10 different labels which are based on the music genre: `blues`, `classical`, 
 `country`, `disco`, `hiphop`, `jazz`, `metal`, `pop`, `reggae`, and `rock`. For each 
 music genre, there are 100 audio files of length 30 seconds. 
@@ -72,6 +74,8 @@ scale the values between 0 and 1.
 Some of the .wav files are corrupted (one in our download, to be exact). 
 [dataset_health_check.py](dataset_health_check.py) examines all .wav files for validity 
 and quarantines corrupted files so they are not used in the train/test split. 
+
+When appending the features along with the 
 
 ### 2.2: Model Exploration
 
