@@ -217,6 +217,57 @@ Sources:
 1) [Mini-VGG: modified from lecture](https://github.com/keithchugg/ee460_spring2025/blob/5b3d0470705ff236a212415c1e510630627afd2d/lecture/02_fmnist_mlp_torch.ipynb)
 2) [ResNet34: modified from Kaggle](https://www.kaggle.com/code/khoongweihao/resnet-34-pytorch-starter-kit)
 
+#### [V3: 15-Second Spectrogram Trained Mini-VGG (2-blocks)](https://github.com/ccorduroy/genreguessr/blob/de9a36fd135d69d0442dfa62df09a4e7ef80da44/CNN/test_CNN_v3.ipynb)
+
+This is our first "solid" training for the Mini-VGG model. 
+
+Our goal with this model is to test whether the Mini-VGG model is sufficient for what we want to do. However, can shown below, the model overfits, and the accurcy isn't very high. We suspected that the spectrograms' length could controbute to this issue, since 15 seconds is very dense and the convolution layers may not be able to pick up on the patterns. Additionally, since our original 30 seconds dataset only has 1000 data poins, this means our entire dataet for 15 seconds, which is pretty small for a spectrogram CNN (compared to the simple MNIST, which has 70,000 samples). Finally, we also suspec **TO BE CONTINUED
+
+```
+----------------------------------------------------------------
+        Layer (type)               Output Shape         Param #
+================================================================
+            Conv2d-1         [-1, 32, 480, 640]             896
+              ReLU-2         [-1, 32, 480, 640]               0
+       BatchNorm2d-3         [-1, 32, 480, 640]              64
+            Conv2d-4         [-1, 32, 480, 640]           9,248
+              ReLU-5         [-1, 32, 480, 640]               0
+       BatchNorm2d-6         [-1, 32, 480, 640]              64
+         MaxPool2d-7         [-1, 32, 240, 320]               0
+         Dropout2d-8         [-1, 32, 240, 320]               0
+            Conv2d-9         [-1, 64, 240, 320]          18,496
+             ReLU-10         [-1, 64, 240, 320]               0
+      BatchNorm2d-11         [-1, 64, 240, 320]             128
+           Conv2d-12         [-1, 64, 240, 320]          36,928
+             ReLU-13         [-1, 64, 240, 320]               0
+      BatchNorm2d-14         [-1, 64, 240, 320]             128
+        MaxPool2d-15         [-1, 64, 120, 160]               0
+        Dropout2d-16         [-1, 64, 120, 160]               0
+          Flatten-17              [-1, 1228800]               0
+           Linear-18                  [-1, 512]     629,146,112
+             ReLU-19                  [-1, 512]               0
+      BatchNorm1d-20                  [-1, 512]           1,024
+        Dropout1d-21                  [-1, 512]               0
+           Linear-22                   [-1, 10]           5,130
+================================================================
+Total params: 629,218,218
+Trainable params: 629,218,218
+Non-trainable params: 0
+----------------------------------------------------------------
+Input size (MB): 3.52
+Forward/backward pass size (MB): 740.64
+Params size (MB): 2400.28
+Estimated Total Size (MB): 3144.43
+----------------------------------------------------------------
+
+Val: 100%|██████████| 4/4 [00:13<00:00,  3.29s/batch, loss=1.19, acc=59.9] 
+Test accuracy: 0.5990
+
+```
+
+![v3_acc](https://github.com/user-attachments/assets/cac21d45-ca87-498e-ad6a-32b4e13ca3da)
+![v3_loss](https://github.com/user-attachments/assets/d3839a46-3580-4033-8d7b-9a1b6be6ca31)
+
 #### V4: 10-Second Spectrogram Trained VGG
 
 Validation Accuracy (last epoch): 78.9%
