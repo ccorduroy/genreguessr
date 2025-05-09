@@ -296,7 +296,8 @@ which may improve accuracy for the spectrogram CV approach. The input to the RNN
 fed the mathematical features from the original dataset as the MLP layer of the CNN was in our
 current implementation. The reason RNN would be beneficial is because Music is temporal, you can 
 use both local and global information and the RNN might learn genre transitions 
-(e.g., a song starts classical, becomes electronic).
+(e.g., a song starts classical, becomes electronic). A sample draft for the RNN implementation
+is found in rnn.ipynb.
 
 #### Streamlined Live Inference
 The ability to make an inference from continuous live recording instead of taking a single 
