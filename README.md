@@ -311,15 +311,9 @@ spectrogram or the depth of the neural network.
 
 ![confusion matrix](CNN/CNN_v10_3sec_resnet34_with_features_trained/confusion_matrix.png)
 
-<details>
-<summary>Loss and Accuracy graphs per epoch (titles are wrong but data is correct)</summary>
-
 ![loss](CNN/CNN_v10_3sec_resnet34_with_features_trained/loss.png)
 
 ![acc](CNN/CNN_v10_3sec_resnet34_with_features_trained/acc.png)
-
-
-</details>
 
 ### 3.2: Problems and Challenges
 
