@@ -129,6 +129,74 @@ Note: Trial in these graphs refers to one iteration of hyperparameter tuning.
 - Likely due to dimensionality reduction discarding useful information for classification.
 - Exception: helps reduce overfitting or redundancy for neural nets and random forests, but not significantly here.
 
+#### Models Key Insights
+#### ↪ Logistic Regression:
+- Linear model
+- Models probability of binary outcome based on linear outcome of input features
+- Uses sigmoid/softmax for multi-class prediction
+- Hyperparameter `C` controls regularization strength
+- Lower 'C' results in stronger regularization, which prevents overfitting
+
+#### ↪ Support Vector Machine (SVM):
+- Linear model
+- Model fins best hyperplane that separates data points with largest possible margin
+- Margin defined as distance between hyperplane and the support vectors
+- Effective for high-dimensional datasets
+- Low 'C' results in underfitting while High 'C' results in overfitting
+- Works well with not linearly separable data, but struggles with noisy data
+
+#### ↪ Perceptron:
+- Linear Model
+- Gets linear outcome of input features then applies activation functions
+- Prediction based on activation output below/above a threshold
+- Relatively simpler classifier and good for linearly separable problems
+- Learning rates affects rate of conversion
+- Tends to underperform with complex/non-linear data
+
+#### ↪ Ridge Classifier:
+- Linear model
+- Based on L2 regression with penalty term (L2 regularization) added to loss function
+- Penatly prevents overfitting by keeping size of weights in consideration
+- 'alpha' term determines the strength of the regularization term
+- Doesn't perform very well with non-linear data
+
+#### ↪ Decision Tree:
+- Non-linear model
+- Divides data at each node of tree based on condition
+- Hyperparameter 'max_depth' controls the depth of the tree
+- Shallow trees underfit while deep trees often overfit
+- Excellent for classification tasks and capturing non-linear data
+
+#### ↪ Random Forest:
+- Non-linear model
+- Aggregates multiple decision trees to improve generalization
+- Each tree gives a classification and majority of prediction is outcome of ensemble
+- Has 2 hyperparameters 'max_depth' and 'n_estimators' which control depth of tree and number of trees
+- Lower value of hyperparameters results in underfitting while higher results in overfitting
+- Works really well on classification tasks and capturing non-linear data
+- Can become computationally expensive & slow to train based on # of trees and depth of trees
+
+  #### ↪ K-Nearest Neighbors (KNN):
+- Non-linear model
+- To classify, finds 'k' closest data points within dataset using distance metric (often 'L2')
+- Class label is determined by majority classification among the 'k' neighbors
+- Has 2 hyperparameters 'n_neighbors' and 'weights'
+    - First looks at number of neighbors to base decision on
+    - Second decides whether closer neighbors get higher priority in final prediction
+- Works excellect with medium-sized datasets, striking a balance between underfitting and overfitting
+
+  #### ↪ Neural Network:
+- Non-linear model
+- Model consists of several interconnected layers of neurons ('3' layers in our project)
+- First layer receives features of dataset as input
+- Last layer outputs to '10' neurons which is our song classification
+- Neurons at each layer receive output of an activation function performed on linearly weighted sum from the neurons in the previous layer
+- Backpropogation enables model weights to be optimized
+- Utilized batch normalization dropout to prevent overfitting
+- Layers: Sequential model with 3 hidden layers (256 -> 128 -> 64 neurons), each followed by BatchNorm, ReLu activation, and dropout (20% -> 30% -> 40%)
+- Works really well at capturing complex relationships form high-dimensional data
+- Better at regression compared to classification, but still very strong for classification
+
 #### Specific Model Behavior
 - KNN performs best overall with raw data and polynomial kernel. Likely due to high-dimensional, localized patterns in GTZAN features.
 - Random Forest is also robust across all transforms — not sensitive to feature scaling.
@@ -382,12 +450,21 @@ Le Duong:
 - Wrote original spectrogram generator protocol
 - developed method to concatenate features onto last layer of CNN
 
-
 Samrit Grover: 
-
-- 4x6 model exploration
+- Generated numerical features for inputted .wav file (inference.py)
+- Developed pipeline for model exploration across 4 different transformations and 8 different models
+   - Go to pipeline folder to view code
+   - main.py is driver code
+   - models.py contains 8 models 
+   - transformation.py contains 4 transformations
+   - datasets.py loads the dataset w/ Min-Max Normalization
+   - Models saved to saved_models folder for later loading 
+- Built inference for new models:
+    - Generates numerical features for inputted .wav file
+    - Loads the best model in the saved_models folder
+    - Runs the numerical features in the model to get output
+    - Returns output so live_sample.py can print
 - Result reports and interpretation
-
 
 Evangelos Neophytou: 
 
