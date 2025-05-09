@@ -212,17 +212,26 @@ Note: Trial in these graphs refers to one iteration of hyperparameter tuning.
 
 ### 2.3: Main Model Choice and Training Approaches
 
-We used a convolutional neural network as our primary approach, utilizing two different architectures. These
-two architectures were both optimized with different spectrogram lengths and depths, discussed/analyzed later
-in this report.
+2 types of architectures were used: Mini-VGG and ResNet34
+
+Sources:
+1) [Mini-VGG: modified from lecture](https://github.com/keithchugg/ee460_spring2025/blob/5b3d0470705ff236a212415c1e510630627afd2d/lecture/02_fmnist_mlp_torch.ipynb)
+2) [ResNet34: modified from Kaggle](https://www.kaggle.com/code/khoongweihao/resnet-34-pytorch-starter-kit)
+
+
+We used a convolutional neural network as our primary approach, utilizing the two architectures above. We went through optimizing with different spectrogram lengths and depths especially for the Mini-VGG architecture. The training approaches will be explained in Section 3 as they differ in every version of the CNN. However, in general, our approach is to have a pre-generated spectrogram dataset of our desired length and feed that into the CNN through dataloaders. Ones it goes through the Convolution layers, it will then get flatten and connected to an MLP which will connect all the convolution parameters together, train the learned features, then output a tensor of size 10 (aka the probability of each genre) and we would run it through an argmax to get the final predicted genre. 
 
 #### Architecture 1: Mini VGG
 
 ![mini vgg architecture](writeup_images/vgg.png)
 
+This diagram is a 2-block Mini-VGG, taken from lectures as our first target was to create a working CNN for our specific dataset. The Mini-VGG was a simple CNN model and easy to manipulate. It also trained relatively fast enough to test out a few different models with varying depths, fully connected nodes, and numbers of filters.
+
 #### Architecture 2: ResNet 34
 
 ![resnet34](writeup_images/resnet.png)
+When it comes to image classification, ResNets are one of the most popular architectures and is very good with avoiding the vanishing gradient problem due to its ability to skip layers (residual connections) and avoid learning through only 1 specific way. This is very helpful for our model because spectrograms are complicated in and of itself and require alot of deep learning which most models eventually lead to the vanishing gradient and the NN is unable to learn anymore. 
+
 
 ### 2.4: Real-World Inference
 
@@ -296,12 +305,6 @@ be fed in for inference.
 ## 3. Outcomes
 
 ### 3.1: CNN Models Performance on Train/Val/Test
-
-2 types of architectures were used: Mini-VGG and ResNet34
-
-Sources:
-1) [Mini-VGG: modified from lecture](https://github.com/keithchugg/ee460_spring2025/blob/5b3d0470705ff236a212415c1e510630627afd2d/lecture/02_fmnist_mlp_torch.ipynb)
-2) [ResNet34: modified from Kaggle](https://www.kaggle.com/code/khoongweihao/resnet-34-pytorch-starter-kit)
 
 #### [V3: 15-Second Spectrogram Trained Mini-VGG (2-blocks)](https://github.com/ccorduroy/genreguessr/blob/de9a36fd135d69d0442dfa62df09a4e7ef80da44/CNN/test_CNN_v3.ipynb)
 
@@ -422,7 +425,7 @@ This is the model we decided to use during our live demo. The architecture was n
 3) Allows us to see how the ResNet works.
 4) Allows us to train our own weights to test against the Mini-VGG using the same dataset.
 
-Note: We also decreased our spectrogram length to 3sec to enlarge the dataset, which would definitely help increase the accuracy. 3 seconds also seem to be the ideal length in many ML spectrogram projects that we see. 
+Note: We also decreased our spectrogram length to 3sec to enlarge the dataset, which would definitely help increase the accuracy. 3 seconds also seem to be the ideal length in many ML spectrogram projects that we see. We did try to test the varying spectrogram length (15sec vs 10sec) between version 3 and 4. However, our v4 (10sec) dataset indices unfortutately got messed up and we weren't able to test the accuracy correctly. Nevertheless, the validation was sitting at around 70-78%, which did seem to be an improvement from 15sec spectrograms. We didn't have time nor compute power to retrain it as our main focus at that moment was shifted towards getting higher accuracies (+90%). 
 
 ```
 ----------------------------------------------------------------
