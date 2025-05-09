@@ -314,6 +314,8 @@ the dataset size and allow the CNN to recognize microphone noise and compression
 - The Linear Model (KNN) on 10-second audiofiles achieved a test accuracy of ~93%, outperforming many traditional machine learning approaches.
 - The project highlighted the importance of feature quality, data augmentation, and architecture choice in music genre classification tasks.
 - Our live audio inference pipeline worked effectively, with real-world spectrograms being denoised, processed, and classified by the trained model.
+- Learned the effectiveness and the usefulness of spectrograms
+- Learned the difference between generalization of the model for personal use and generalization for the outside world.
 
 ---
 
@@ -338,6 +340,7 @@ Evangelos Neophytou:
 - Model exploration: code, graphs, neural network imp
 - RNN implementation (not used in final model but present in project)
 - PCA and K-means explorations
+- Presentation
 
 
 Caitlin Sullivan: 
