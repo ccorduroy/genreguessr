@@ -219,7 +219,14 @@ Sources:
 2) [ResNet34: modified from Kaggle](https://www.kaggle.com/code/khoongweihao/resnet-34-pytorch-starter-kit)
 
 
-We used a convolutional neural network as our primary approach, utilizing the two architectures above. We went through optimizing with different spectrogram lengths and depths especially for the Mini-VGG architecture. The training approaches will be explained in Section 3 as they differ in every version of the CNN. However, in general, our approach is to have a pre-generated spectrogram dataset of our desired length and feed that into the CNN through dataloaders. Ones it goes through the Convolution layers, it will then get flatten and connected to an MLP which will connect all the convolution parameters together, train the learned features, then output a tensor of size 10 (aka the probability of each genre) and we would run it through an argmax to get the final predicted genre. 
+We used a convolutional neural network as our primary approach, utilizing the two architectures above. We went through optimizing with different spectrogram lengths and depths especially for the Mini-VGG architecture. The training approaches will be explained in Section 3 as they differ in every version of the CNN. 
+
+However, in general, our approach is to have a pre-generated spectrogram dataset of our desired length and feed that into the CNN through dataloaders. Once it goes through the Convolution layers, it will then get flatten and connected to an MLP which will connect all the convolution parameters together, train the learned features, then output a tensor of size 10 (aka the probability of each genre) and we would run it through an argmax to get the final predicted genre. 
+
+In all the models, we were also using the Adam optimizer as it gives the gradient some momentum based on the gradients from previous updates and allow quicker convergence. Adam also has L2 regularization (weight_decay) and we used it along with dropouts and batch normalization to regularize and generalize the model. We also used the Cross Entropy Loss since it gives probabilities for multiple classes. 
+
+Because each training usually takes us around 3-4 hours on the Mini-VGG and 7-9 hours on the ResNet34, it didn't make sense for us to try and optimize the hyperparameters especially when we know the reccommended default values works great for the architecture we're using. 
+
 
 #### Architecture 1: Mini VGG
 
