@@ -294,7 +294,9 @@ outline, so future work would include this. The output vectors from the CNN woul
 inputs to an RNN which could, theoretically, support inferences based off longer time samples,
 which may improve accuracy for the spectrogram CV approach. The input to the RNN could also be
 fed the mathematical features from the original dataset as the MLP layer of the CNN was in our
-current implementation. 
+current implementation. The reason RNN would be beneficial is because Music is temporal, you can 
+use both local and global information and the RNN might learn genre transitions 
+(e.g., a song starts classical, becomes electronic).
 
 #### Streamlined Live Inference
 The ability to make an inference from continuous live recording instead of taking a single 
