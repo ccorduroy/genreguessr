@@ -64,12 +64,10 @@ There are 10 different labels which are based on the music genre: `blues`, `clas
 `country`, `disco`, `hiphop`, `jazz`, `metal`, `pop`, `reggae`, and `rock`. For each 
 music genre, there are 100 audio files of length 30 seconds. 
 
-For each audio file there are 59 
+For each audio file there are 60 
 features derived including `filename`, `length`, `chroma_stft_mean / var`, `RMS_mean / var`, 
 `spectral_centroid_mean / var`, `spectral_bandwidth_mean / var`, `rolloff_mean / var`, 
-`zero_crossing_rate_mean / var`, `harmony_mean / var`, `perceptr_mean / var`, `tempo`, 
-and 20 `mfcc_mean / var`. There are no missing values in any of the data columns, so no imputation 
-is required. We removed the filename and length column since they’re not indicative 
+`zero_crossing_rate_mean / var`, `harmony_mean / var`, `perceptr_mean / var`, `tempo`, 20 `mfcc_mean / var`, and class label. There are no missing values in any of the data columns, so no imputation is required. We removed the filename and length column since they’re not indicative 
 of the song genre. For each of the features, we performed Min-Max normalization to 
 scale the values between 0 and 1.
 
@@ -77,7 +75,7 @@ Some of the .wav files are corrupted (one in our download, to be exact).
 [dataset_health_check.py](dataset_health_check.py) examines all .wav files for validity 
 and quarantines corrupted files so they are not used in the train/test split. 
 
-When appending the features along with the  
+One of the rows (corresponding to one 3-second sample) was missing and caused mismatch in the generated 3-seconds spectrogram dataset and the 3-second hand-design features dataset.
 
 ### 2.2: Model Exploration
 
